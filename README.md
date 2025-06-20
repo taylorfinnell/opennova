@@ -41,9 +41,15 @@ At this point you should be able to open the `MissionScenes/00TRg.tscn`.
 
 It can't really do much yet. You can technically edit missions (and still be usable in the original games), but anything more than rotatition or translation of entities is pretty awkward.
 
-## OpenNova Tools
+## Goals
+
+The original goal was just to understand the various file formats, mostly for fun. It slowly got out of control from there. One of the more obtainable goals would be a MED (Novalogic's original mission editor) replacement. The groundwork is mostly there for that.
+The dream would be a full implementation of the engine.
+
+## OpenNova 3DS Max Tools
 
 - [.bad exporter](https://github.com/taylorfinnell/onbadexporter/)
+- [.3di importer](https://github.com/taylorfinnell/on3diimporter)
 
 ## NovaLogic File Formats
 
