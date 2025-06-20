@@ -2,7 +2,7 @@
 
 Godot reimplementation of the Novalogic engine.
 
-This is a heavy work and progress and should not be used on assets you care about. You need to own
+This is a heavy work in progress and should not be used on assets you care about. You need to own
 the Novalogic game you wish to import.
 
 [Screenshot](https://snaps.screensnapr.io/19d0573f670cf5c749db88daa6bc1d)
