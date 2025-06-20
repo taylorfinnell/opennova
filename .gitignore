@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.vs
+.claude
+.scratch
+CLAUDE.md
+export/
+assets/

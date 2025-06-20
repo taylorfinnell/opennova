@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1gjsrhwfmqkk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_npua8"]
+
+[sub_resource type="Sky" id="Sky_qvby3"]
+sky_material = SubResource("ProceduralSkyMaterial_npua8")
+
+[sub_resource type="Environment" id="Environment_byym7"]
+background_mode = 2
+sky = SubResource("Sky_qvby3")
+ambient_light_source = 2
+ambient_light_color = Color(0.74978, 0.74978, 0.74978, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+
+[node name="Env" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.219028, -0.893713, 0.391541, -0.817482, 0.387161, 0.426415, -0.532682, -0.226681, -0.815393, 0, 0, 2.12683)
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+shadow_enabled = true
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_byym7")

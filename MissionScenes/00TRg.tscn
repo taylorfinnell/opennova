@@ -1,0 +1,115 @@
+[gd_scene load_steps=18 format=3 uid="uid://cybxgtdcaniom"]
+
+[ext_resource type="Script" uid="uid://c3fvt50ipdr35" path="res://Mission/MissionLoader.cs" id="1_5ag57"]
+[ext_resource type="Resource" uid="uid://7kjpegkqqnqn" path="res://assets/00TRg.bms" id="2_xl2c3"]
+[ext_resource type="Resource" uid="uid://ck6l06usptnts" path="res://assets/Dvxi5.trn" id="4_u1ldj"]
+[ext_resource type="Script" uid="uid://bcvdcldhv1k6a" path="res://Terrain/TerrainLoader.cs" id="6_dqtt6"]
+[ext_resource type="Shader" uid="uid://brub7g8w52pkx" path="res://Terrain/Terrain.gdshader" id="8_x68x7"]
+[ext_resource type="Script" uid="uid://cjaclp2l541lu" path="res://Fullscreen.gd" id="18_ewq7i"]
+[ext_resource type="Script" uid="uid://bn6lmynpiae52" path="res://FPSDisplay.cs" id="19_xpwg7"]
+[ext_resource type="Script" uid="uid://c5uewj1rmyame" path="res://Terrain/TerrainHeightDisplay.cs" id="20_h2x6c"]
+[ext_resource type="Script" uid="uid://c14w7bb4eyg1c" path="res://Camera.cs" id="21_i0o1i"]
+[ext_resource type="PackedScene" uid="uid://d1gjsrhwfmqkk" path="res://DefaultEnv.tscn" id="22_f1lxm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8j1q7"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkswu"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qvby3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dldeu"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_qvby3")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bttt3"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_qvby3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_evofm"]
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(0.0470588, 0.317647, 0.466667, 0.627451)
+roughness = 0.0
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_dldeu")
+refraction_enabled = true
+refraction_texture = SubResource("NoiseTexture2D_bttt3")
+uv1_scale = Vector3(0.04, 0.04, 0.04)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_0ou0u"]
+material = SubResource("StandardMaterial3D_evofm")
+size = Vector3(4096, 21, 4096)
+
+[node name="00TRg" type="Node3D"]
+
+[node name="Mission" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_5ag57")
+Mission = ExtResource("2_xl2c3")
+metadata/_custom_type_script = "uid://c3fvt50ipdr35"
+
+[node name="Terrain" type="Node3D" parent="."]
+script = ExtResource("6_dqtt6")
+TerrainDefinition = ExtResource("4_u1ldj")
+DefaultLodLevel = 4
+TerrainShader = ExtResource("8_x68x7")
+
+[node name="Tools" type="Node" parent="."]
+
+[node name="Fullscreen" type="Node" parent="Tools"]
+script = ExtResource("18_ewq7i")
+
+[node name="FPSDisplay" type="Label" parent="Tools"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_8j1q7")
+text = "FPS: 122"
+script = ExtResource("19_xpwg7")
+metadata/_custom_type_script = "uid://bn6lmynpiae52"
+
+[node name="TerrainHeightDisplay" type="Label" parent="Tools" node_paths=PackedStringArray("TerrainLoader")]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 200.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_lkswu")
+text = "Pos: (0.0, 193.2, 501.6)
+Terrain: 0.0
+Sector: 4"
+script = ExtResource("20_h2x6c")
+TerrainLoader = NodePath("../../Terrain")
+metadata/_custom_type_script = "uid://c5uewj1rmyame"
+
+[node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("TerrainLoader")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.946925, 0.321456, 0, -0.321456, 0.946925, 0, 193.244, 501.604)
+near = 0.008
+far = 40000.0
+script = ExtResource("21_i0o1i")
+WalkSpeed = 15.0
+SprintSpeed = 100.0
+TerrainLoader = NodePath("../Terrain")
+
+[node name="Env" parent="." instance=ExtResource("22_f1lxm")]
+
+[node name="Water" type="Node3D" parent="."]
+
+[node name="WaterPlane" type="MeshInstance3D" parent="Water"]
+mesh = SubResource("BoxMesh_0ou0u")
+skeleton = NodePath("../..")
