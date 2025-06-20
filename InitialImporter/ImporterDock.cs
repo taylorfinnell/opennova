@@ -128,6 +128,10 @@ public partial class ImporterDock : Control
         int totalExtracted = 0;
         foreach (var pffPath in pffFiles)
         {
+            if(!pffPath.ToLower().Contains("resource") && !pffPath.ToLower().Contains("localres"))
+            {
+                continue;
+            }
             GD.Print($"Processing: {Path.GetFileName(pffPath)}");
             totalExtracted += ExtractFromPackFile(pffPath);
         }

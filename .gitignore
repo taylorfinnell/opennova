@@ -7,3 +7,5 @@
 CLAUDE.md
 export/
 assets/
+!assets/.gitkeep
+!assets/textures/.gitkeep
